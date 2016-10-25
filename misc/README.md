@@ -118,6 +118,7 @@ $ open $(minikube service tomcat-test --url)
 
 #### question: how do you remove a pod?
 
+```
 $ k get pods
 NAME                              READY     STATUS             RESTARTS   AGE
 hello-minikube-3015430129-nmlu5   1/1       Running            1          1h
