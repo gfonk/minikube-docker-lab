@@ -1,0 +1,16 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: rabbitmq
+spec:
+  ports:
+  - name: rabbitmq-default
+    port: 5672
+    targetPort: 5672
+  - name: rabbitmq-console
+    port: 15672
+    targetPort: 15672
+  selector:
+    app: rabbitmq
+  type: LoadBalancer

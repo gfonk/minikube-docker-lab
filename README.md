@@ -51,7 +51,14 @@ $ minikube --vm-driver=xhyve start
 
 # minikube-start alias
 $ echo "alias minikube-start='minikube --vm-driver=xhyve start'" >> ~/.basrhc
+```
 
+or place the config in minikube
+
+```
+$ minikube config set vm-driver xhyve
+$ minikube stop
+$ minikube start
 ```
 
 **issues with starting**
@@ -138,4 +145,45 @@ Machine stopped.
 ```
 $ minikube dashboard
 Opening kubernetes dashboard in default browser...
+```
+
+the service for the dashboard
+
+```
+$ k describe service kubernetes
+Name:			kubernetes
+Namespace:		default
+Labels:			component=apiserver
+			provider=kubernetes
+Selector:		<none>
+Type:			ClusterIP
+IP:			10.0.0.1
+Port:			https	443/TCP
+Endpoints:		192.168.64.7:8443
+Session Affinity:	ClientIP
+
+$ k get service kubernetes --output=yaml
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: 2016-10-24T20:17:30Z
+  labels:
+    component: apiserver
+    provider: kubernetes
+  name: kubernetes
+  namespace: default
+  resourceVersion: "7"
+  selfLink: /api/v1/namespaces/default/services/kubernetes
+  uid: e426c713-9a26-11e6-9eea-8acd2637f68d
+spec:
+  clusterIP: 10.0.0.1
+  ports:
+  - name: https
+    port: 443
+    protocol: TCP
+    targetPort: 443
+  sessionAffinity: ClientIP
+  type: ClusterIP
+status:
+  loadBalancer: {}
 ```
